@@ -13,7 +13,7 @@ const serverPack = {
 	devtool: 'source-map',
 	output: {
 		path: path.join(fileRoot, '/dist/server'),
-		filename: 'server.js',
+		filename: 'index.js',
 	},
 	externals: [nodeExternals()], // do not attempt to bundle node_modules
 	module: {
