@@ -9,11 +9,11 @@ const serverPack = {
 	mode: 'development',
 	stats: 'minimal',
 	target: 'node',
-	entry: './src/server/server.js',
+	entry: './src/server/index.js',
 	devtool: 'source-map',
 	output: {
 		path: path.join(fileRoot, '/dist/server'),
-		filename: 'server.js',
+		filename: 'index.js',
 	},
 	externals: [nodeExternals()], // do not attempt to bundle node_modules
 	module: {
