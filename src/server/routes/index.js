@@ -1,15 +1,10 @@
 import express from 'express';
-import React from 'react';
-import reactDomServer from 'react-dom/server';
-import App from '../../app/App';
+import fallback from './fallback';
+import root from './root';
 
-// import { createStore } from 'redux';
+const router = express.Router();
 
-const viewRouter = express.Router();
+router.use('/', root);
+router.use('*', fallback);
 
-viewRouter.route('/').get((req, res) => {
-	const jsxString = reactDomServer.renderToString(<App />);
-	res.render('output', { jsxString });
-});
-
-export default viewRouter;
+export default router;
