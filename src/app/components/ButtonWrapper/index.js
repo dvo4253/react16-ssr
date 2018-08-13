@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-
-const PING = 'PING';
+import { PING } from './ducks';
 
 const ButtonWrapper = ({ ping, isPinging, text }) => (
 	<div>
