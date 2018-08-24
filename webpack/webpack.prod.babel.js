@@ -23,31 +23,24 @@ const writeToDisk = new DiskPlugin({
 const devConfig = merge({
 	entry: {
 		app: [
-			'react-hot-loader/patch',
-			'webpack-dev-server/client?http://localhost:3000',
-			'webpack/hot/only-dev-server',
 			'./src/app/client.js',
 			'./src/app/styles/entry.scss',
 		],
 	},
 	mode: 'development',
-	// devtool: 'cheap-module-source-map',  // may speed up rebuild but no source maps
-	devtool: 'eval-source-map', // source maps
+	devtool: 'source-map', // source maps
 	cache: true,
-	devServer: {
-		contentBase: path.join(fileRoot, 'dist/public'),
-		compress: true,
-		port: 3000,
-	},
 	plugins: [
 		writeToDisk,
-		// new WriteAssetsWebpackPlugin({ force: true, extension: ['html'] }),
 		new webpack.NamedModulesPlugin(),
-		new webpack.HotModuleReplacementPlugin(),
-		// new BundleAnalyzerPlugin() // enable for the bundle analyzer to show in browser
+		new webpack.DefinePlugin({
+			'process.env': {
+				NODE_ENV: JSON.stringify('production'),
+			},
+		}),
 	],
 	output: {
-		publicPath: 'http://localhost:3000/dist/public',
+		path: path.join(fileRoot, '/dist/public'),
 	},
 	optimization: {
 		runtimeChunk: 'single',

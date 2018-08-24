@@ -7,6 +7,7 @@ const viewRouter = express.Router();
 
 viewRouter.route('/').get((req, res) => {
 	const jsxString = reactDomServer.renderToString(<App />);
+	console.log('JSX: ', jsxString);
 	res.render('output', { jsxString });
 });
 
