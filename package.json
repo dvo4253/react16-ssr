@@ -5,7 +5,9 @@
   "repository": "https://github.com/dvo4253/react16-ssr.git",
   "scripts": {
     "babel-node": "babel-node ./src/server/index.js",
-    "build": "webpack-dev-server --mode=development --config webpack/webpack.dev.babel.js",
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "webpack  --config webpack/webpack.prod.babel.js",
+    "build:server": "webpack --config webpack/webpack.server.babel.js",
     "build:dev": "npm run build:client:dev & npm run build:server:dev",
     "build:client:dev": "NODE_ENV=development BABEL_ENV=development webpack-dev-server --config webpack/webpack.dev.babel.js",
     "build:server:dev": "NODE_ENV=development BABEL_ENV=development webpack --config webpack/webpack.server.babel.js --watch",
