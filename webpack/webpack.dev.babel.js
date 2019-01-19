@@ -1,30 +1,20 @@
 import path from 'path';
 import webpack from 'webpack';
 import merge from 'webpack-merge';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import AssetsPlugin from 'assets-webpack-plugin';
 
 import common from './webpack.common.babel';
 
 const fileRoot = process.cwd();
 
-const devModules = {
-	rules: [
-		{
-			test: /\.scss$/,
-			use: [
-				'style-loader',
-				'css-loader',
-				'postcss-loader',
-				'sass-loader',
-			],
-		},
-	],
-};
-
 const devPlugins = [
 	new AssetsPlugin({
 		filename: 'assets.json',
 		path: path.join(fileRoot, '/dist/public'),
+	}),
+	new MiniCssExtractPlugin({
+		filename: '[name].css',
 	}),
 	new webpack.NamedModulesPlugin(),
 	new webpack.HotModuleReplacementPlugin(),
@@ -52,7 +42,6 @@ const devConfig = merge({
 		compress: true,
 		port: 3000,
 	},
-	module: devModules,
 	plugins: devPlugins,
 }, common);
 

@@ -2,12 +2,21 @@ import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin';
 import HtmlWebpackPugPlugin from 'html-webpack-pug-plugin';
-// import 'pug-loader';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 const fileRoot = process.cwd();
 
 const defaultModules = {
 	rules: [
+		{
+			test: /\.scss$/,
+			use: [
+				MiniCssExtractPlugin.loader,
+				'css-loader',
+				'postcss-loader',
+				'sass-loader',
+			],
+		},
 		{
 			test: /.js$/,
 			loader: 'babel-loader',

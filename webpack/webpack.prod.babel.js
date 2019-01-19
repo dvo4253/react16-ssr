@@ -5,20 +5,6 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import common from './webpack.common.babel';
 
-const prodModules = {
-	rules: [
-		{
-			test: /\.scss$/,
-			use: [
-				MiniCssExtractPlugin.loader,
-				'css-loader',
-				'postcss-loader',
-				'sass-loader',
-			],
-		},
-	],
-};
-
 const prodPlugins = [
 	new MiniCssExtractPlugin({
 		filename: '[name].[chunkhash].css',
@@ -53,7 +39,6 @@ const prodConfig = merge({
 	output: {
 		filename: '[name].[chunkhash].js',
 	},
-	module: prodModules,
 	plugins: prodPlugins,
 	optimization: prodOptimizations,
 }, common);
