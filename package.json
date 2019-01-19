@@ -6,6 +6,7 @@
   "scripts": {
     "predev": "rm -rf ./dist",
     "dev": "npm run lint && concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:analyze": "BUNDLE_ANALYZER=true npm run dev",
     "dev:server": "NODE_ENV=development BABEL_ENV=development nodemon src/server/index.js --exec babel-node",
     "dev:client": "NODE_ENV=development BABEL_ENV=development webpack-dev-server --config webpack/webpack.dev.babel.js",
     "build": "npm run build:client && npm run build:server",
@@ -49,7 +50,6 @@
     "ramda": "0.26.1",
     "react": "16.7.0",
     "react-dom": "16.7.0",
-    "react-hot-loader": "4.6.3",
     "redux": "4.0.1",
     "sass-loader": "7.1.0",
     "uglifyjs-webpack-plugin": "2.1.1",
@@ -75,6 +75,7 @@
     "style-loader": "0.23.1",
     "supertest": "3.4.1",
     "wait-on": "3.2.0",
+    "webpack-bundle-analyzer": "3.0.3",
     "webpack-cli": "3.2.1",
     "webpack-dev-server": "3.1.14"
   }

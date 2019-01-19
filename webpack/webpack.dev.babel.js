@@ -18,15 +18,15 @@ const devPlugins = [
 	}),
 	new webpack.NamedModulesPlugin(),
 	new webpack.HotModuleReplacementPlugin(),
-	// new BundleAnalyzerPlugin() // enable for the bundle analyzer to show in browser
 ];
+// eslint-disable-next-line no-unused-expressions, global-require, import/no-extraneous-dependencies
+process.env.BUNDLE_ANALYZER && devPlugins.push(new (require('webpack-bundle-analyzer').BundleAnalyzerPlugin)());
 
 const devConfig = merge({
 	mode: 'development',
 	devtool: 'eval-source-map', // source maps
 	entry: {
 		app: [
-			'react-hot-loader/babel',
 			'webpack-dev-server/client?http://localhost:3000',
 			'webpack/hot/only-dev-server',
 			'./src/app/client.js',
@@ -38,9 +38,11 @@ const devConfig = merge({
 		publicPath: 'http://localhost:3000/dist/public',
 	},
 	devServer: {
+		hot: true,
 		contentBase: path.join(fileRoot, 'dist/public'),
 		compress: true,
 		port: 3000,
+		headers: { 'Access-Control-Allow-Origin': '*' },
 	},
 	plugins: devPlugins,
 }, common);
