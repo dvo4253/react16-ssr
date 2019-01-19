@@ -2,7 +2,7 @@ import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin';
 import HtmlWebpackPugPlugin from 'html-webpack-pug-plugin';
-import 'pug-loader';
+// import 'pug-loader';
 
 const fileRoot = process.cwd();
 
