@@ -1,67 +1,50 @@
-import merge from 'webpack-merge';
 import path from 'path';
 import webpack from 'webpack';
-import DiskPlugin from 'webpack-disk-plugin';
+import merge from 'webpack-merge';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import AssetsPlugin from 'assets-webpack-plugin';
+
 import common from './webpack.common.babel';
 
 const fileRoot = process.cwd();
 
-// Write out asset files to disk.
-const writeToDisk = new DiskPlugin({
-	output: {
+const devPlugins = [
+	new AssetsPlugin({
+		filename: 'assets.json',
 		path: path.join(fileRoot, '/dist/public'),
-	},
-	files: [
-		{ asset: 'assets.json' },
-		{ asset: /app.[a-f0-9]{20}\.js/ },
-		{ asset: /vendors.[a-f0-9]{20}\.js/ },
-		{ asset: /runtime.[a-f0-9]{20}\.js/ },
-		{ asset: /app.[a-f0-9]{20}\.css/ },
-	],
-});
+	}),
+	new MiniCssExtractPlugin({
+		filename: '[name].css',
+	}),
+	new webpack.NamedModulesPlugin(),
+	new webpack.HotModuleReplacementPlugin(),
+];
+// eslint-disable-next-line no-unused-expressions, global-require, import/no-extraneous-dependencies
+process.env.BUNDLE_ANALYZER && devPlugins.push(new (require('webpack-bundle-analyzer').BundleAnalyzerPlugin)());
 
 const devConfig = merge({
+	mode: 'development',
+	devtool: 'eval-source-map', // source maps
 	entry: {
 		app: [
-			'react-hot-loader/patch',
 			'webpack-dev-server/client?http://localhost:3000',
 			'webpack/hot/only-dev-server',
 			'./src/app/client.js',
-			'./src/app/styles/entry.scss',
 		],
+		styles: './src/app/styles/entry.scss',
 	},
-	mode: 'development',
-	// devtool: 'cheap-module-source-map',  // may speed up rebuild but no source maps
-	devtool: 'eval-source-map', // source maps
-	cache: true,
+	output: {
+		filename: '[name].js',
+		publicPath: 'http://localhost:3000/dist/public',
+	},
 	devServer: {
+		hot: true,
 		contentBase: path.join(fileRoot, 'dist/public'),
 		compress: true,
 		port: 3000,
+		headers: { 'Access-Control-Allow-Origin': '*' },
 	},
-	plugins: [
-		writeToDisk,
-		// new WriteAssetsWebpackPlugin({ force: true, extension: ['html'] }),
-		new webpack.NamedModulesPlugin(),
-		new webpack.HotModuleReplacementPlugin(),
-		// new BundleAnalyzerPlugin() // enable for the bundle analyzer to show in browser
-	],
-	output: {
-		publicPath: 'http://localhost:3000/dist/public',
-	},
-	optimization: {
-		runtimeChunk: 'single',
-		splitChunks: {
-			cacheGroups: {
-				vendors: {
-					test: /[\\/]node_modules[\\/]/,
-					name: 'vendors',
-					enforce: true,
-					chunks: 'all',
-				},
-			},
-		},
-	},
+	plugins: devPlugins,
 }, common);
 
-module.exports = devConfig;
+export default devConfig;

@@ -1,6 +1,7 @@
 {
 	"extends": [
-		"airbnb"
+		"airbnb",
+		"plugin:react/recommended"
 	],
 	"env": {
 		"es6": true,
@@ -29,7 +30,9 @@
 		"react/jsx-filename-extension": 0,
 		"react/jsx-one-expression-per-line": 0
 	},
+	"parser": "babel-eslint",
 	"parserOptions": {
+		"ecmaVersion": 2018,
 		"ecmaFeatures": {
 			"jsx": true
 		}
