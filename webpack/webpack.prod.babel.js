@@ -1,60 +1,46 @@
-import merge from 'webpack-merge';
-import path from 'path';
 import webpack from 'webpack';
-import DiskPlugin from 'webpack-disk-plugin';
+import merge from 'webpack-merge';
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import common from './webpack.common.babel';
 
-const fileRoot = process.cwd();
+const prodPlugins = [
+	new MiniCssExtractPlugin({
+		filename: '[name].[chunkhash].css',
+	}),
+	new webpack.DefinePlugin({
+		'process.env': {
+			NODE_ENV: JSON.stringify('production'),
+		},
+	}),
+];
 
-// Write out asset files to disk.
-const writeToDisk = new DiskPlugin({
-	output: {
-		path: path.join(fileRoot, '/dist/public'),
-	},
-	files: [
-		{ asset: 'assets.json' },
-		{ asset: /app.[a-f0-9]{20}\.js/ },
-		{ asset: /vendors.[a-f0-9]{20}\.js/ },
-		{ asset: /runtime.[a-f0-9]{20}\.js/ },
-		{ asset: /app.[a-f0-9]{20}\.css/ },
+const prodOptimizations = {
+	minimizer: [
+		new UglifyJsPlugin({
+			cache: true,
+			parallel: true,
+			sourceMap: true, // set to true if you want JS source maps
+		}),
+		new OptimizeCSSAssetsPlugin({}),
 	],
-});
+};
 
-const devConfig = merge({
+const prodConfig = merge({
+	mode: 'production',
+	devtool: 'source-map', // source maps
 	entry: {
 		app: [
 			'./src/app/client.js',
-			'./src/app/styles/entry.scss',
 		],
+		styles: './src/app/styles/entry.scss',
 	},
-	mode: 'development',
-	devtool: 'source-map', // source maps
-	cache: true,
-	plugins: [
-		writeToDisk,
-		new webpack.NamedModulesPlugin(),
-		new webpack.DefinePlugin({
-			'process.env': {
-				NODE_ENV: JSON.stringify('production'),
-			},
-		}),
-	],
 	output: {
-		path: path.join(fileRoot, '/dist/public'),
+		filename: '[name].[chunkhash].js',
 	},
-	optimization: {
-		runtimeChunk: 'single',
-		splitChunks: {
-			cacheGroups: {
-				vendors: {
-					test: /[\\/]node_modules[\\/]/,
-					name: 'vendors',
-					enforce: true,
-					chunks: 'all',
-				},
-			},
-		},
-	},
+	plugins: prodPlugins,
+	optimization: prodOptimizations,
 }, common);
 
-module.exports = devConfig;
+module.exports = prodConfig;
