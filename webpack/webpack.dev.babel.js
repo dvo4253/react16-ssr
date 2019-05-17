@@ -22,9 +22,29 @@ const devPlugins = [
 // eslint-disable-next-line no-unused-expressions, global-require, import/no-extraneous-dependencies
 process.env.BUNDLE_ANALYZER && devPlugins.push(new (require('webpack-bundle-analyzer').BundleAnalyzerPlugin)());
 
+const devModules = {
+	rules: [
+		{
+			test: /\.scss$/,
+			use: [
+				{
+					loader: MiniCssExtractPlugin.loader,
+					options: {
+						hmr: true,
+					},
+				},
+				'css-loader',
+				'postcss-loader',
+				'sass-loader',
+			],
+		},
+	],
+};
+
 const devConfig = merge({
 	mode: 'development',
 	devtool: 'eval-source-map', // source maps
+	modules: devModules,
 	entry: {
 		app: [
 			'webpack-dev-server/client?http://localhost:3000',
