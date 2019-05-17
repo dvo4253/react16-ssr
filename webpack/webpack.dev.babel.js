@@ -8,6 +8,30 @@ import common from './webpack.common.babel';
 
 const fileRoot = process.cwd();
 
+const devModules = {
+	rules: [
+		{
+			test: /\.scss$/,
+			use: [
+				{
+					loader: MiniCssExtractPlugin.loader,
+					options: {
+						hmr: true,
+					},
+				},
+				'css-loader',
+				'postcss-loader',
+				'sass-loader',
+			],
+		},
+		{
+			test: /.js$/,
+			loader: 'babel-loader',
+			include: path.join(fileRoot, 'src/app'),
+		},
+	],
+};
+
 const devPlugins = [
 	new AssetsPlugin({
 		filename: 'assets.json',
@@ -25,6 +49,7 @@ process.env.BUNDLE_ANALYZER && devPlugins.push(new (require('webpack-bundle-anal
 const devConfig = merge({
 	mode: 'development',
 	devtool: 'eval-source-map', // source maps
+	module: devModules,
 	entry: {
 		app: [
 			'webpack-dev-server/client?http://localhost:3000',
