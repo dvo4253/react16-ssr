@@ -17,7 +17,7 @@
     "test:ci": "npm run lint && jest --coverage",
     "lint": "eslint --fix ./",
     "init": "source init.sh",
-    "clean": "rm -rf node_modules && rm -rf dist",
+    "clean": "rm -rf node_modules && rm -f package-lock.json && rm -rf ./dist",
     "clean:install": "npm run clean && npm install && npm outdated"
   },
   "author": "",

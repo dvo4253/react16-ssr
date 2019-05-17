@@ -38,13 +38,18 @@ const devModules = {
 				'sass-loader',
 			],
 		},
+		{
+			test: /.js$/,
+			loader: 'babel-loader',
+			include: path.join(fileRoot, 'src/app'),
+		},
 	],
 };
 
 const devConfig = merge({
 	mode: 'development',
 	devtool: 'eval-source-map', // source maps
-	modules: devModules,
+	module: devModules,
 	entry: {
 		app: [
 			'webpack-dev-server/client?http://localhost:3000',
