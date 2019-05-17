@@ -38,6 +38,11 @@ const devModules = {
 				'sass-loader',
 			],
 		},
+		{
+			test: /.js$/,
+			loader: 'babel-loader',
+			include: path.join(fileRoot, 'src/app'),
+		},
 	],
 };
 
@@ -57,7 +62,7 @@ const devConfig = merge({
 		filename: '[name].js',
 		publicPath: 'http://localhost:3000/dist/public',
 	},
-	modules: devModules,
+	module: devModules,
 	devServer: {
 		hot: true,
 		contentBase: path.join(fileRoot, 'dist/public'),
