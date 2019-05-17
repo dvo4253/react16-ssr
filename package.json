@@ -55,7 +55,7 @@
     "redux": "4.0.1",
     "sass-loader": "7.1.0",
     "tar": "4.4.8",
-    "terser-webpack-plugin": "1.2.3",
+    "terser-webpack-plugin": "1.2.4",
     "webpack": "4.31.0",
     "webpack-disk-plugin": "0.0.2",
     "webpack-merge": "4.2.1",
