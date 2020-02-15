@@ -55,7 +55,7 @@
     "terser-webpack-plugin": "1.4.3",
     "webpack": "4.31.0",
     "webpack-disk-plugin": "0.0.2",
-    "webpack-merge": "4.2.1",
+    "webpack-merge": "4.2.2",
     "webpack-node-externals": "1.7.2",
     "winston": "3.2.1"
   },
