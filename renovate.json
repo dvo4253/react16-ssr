@@ -2,6 +2,12 @@
   "extends": [
     "config:base"
 	],
+	"baseBranches": [
+    "master",
+    "react-redux-observable",
+    "react-redux-thunk",
+    "react-basic"
+  ],
 	"packageRules": [
 		{
 			"updateTypes": ["minor", "patch", "pin", "digest"],
