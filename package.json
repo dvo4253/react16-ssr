@@ -71,7 +71,7 @@
     "eslint-plugin-react": "7.18.3",
     "jest": "24.9.0",
     "nodemon": "1.19.4",
-    "style-loader": "0.23.1",
+    "style-loader": "1.2.1",
     "supertest": "4.0.2",
     "wait-on": "3.3.0",
     "webpack-bundle-analyzer": "3.6.0",
