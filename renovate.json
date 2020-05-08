@@ -1,7 +1,10 @@
 {
   "extends": [
-    "config:base"
-	],
+    ":preserveSemverRanges",
+    "group:all",
+    "schedule:monthly",
+    ":maintainLockFilesMonthly"
+  ],
 	"baseBranches": [
     "master",
     "react-redux-observable",
@@ -13,5 +16,12 @@
 			"updateTypes": ["minor", "patch", "pin", "digest"],
 			"automerge": true
 		}
-	]
+	],
+	"separateMajorMinor": false,
+  "lockFileMaintenance": {
+    "extends": [
+      "group:all"
+    ],
+    "commitMessageAction": "Update"
+  }
 }
