@@ -16,7 +16,7 @@
 			"updateTypes": ["minor", "patch", "pin", "digest"],
 			"automerge": true
 		}
-	]
+	],
 	"separateMajorMinor": false,
   "lockFileMaintenance": {
     "extends": [
@@ -25,3 +25,4 @@
     "commitMessageAction": "Update"
   }
 }
+
