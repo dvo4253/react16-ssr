@@ -8,7 +8,7 @@ import request from 'supertest';
 import healthAPI from './health';
 import { healthMock } from './mock';
 
-jest.mock('os', () => require('./mock/').healthMock.osMock);
+jest.mock('os', () => require('./mock').healthMock.osMock);
 
 const app = express();
 
