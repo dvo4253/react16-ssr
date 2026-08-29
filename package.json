@@ -36,7 +36,7 @@
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.2",
     "eslint": "7.3.1",
-    "express": "4.17.1",
+    "express": "4.20.0",
     "express-winston": "4.0.3",
     "html-webpack-harddisk-plugin": "1.0.2",
     "html-webpack-plugin": "4.3.0",
